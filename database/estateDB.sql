@@ -52,13 +52,12 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `user` (
-  `user_id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `full_name` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_id`),
-  UNIQUE KEY `username` (`username`)
+  `usrID` int NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(50) DEFAULT NULL,
+  `lastname` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `phonenumber` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`usrID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -68,7 +67,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'test1','securepass1','Nguyen Van A','2024-08-12 16:52:55'),(2,'test2','securepass2','Tran Thi B','2024-08-12 16:52:55'),(3,'test3','securepass3','Le Van C','2024-08-12 16:52:55'),(4,'test4','securepass4','Pham Thi D','2024-08-12 16:52:55'),(5,'test5','securepass5','Hoang Van E','2024-08-12 16:52:55');
+INSERT INTO `user` VALUES (1,'Nguyen','Van A','nguyenvana@example.com','098-765-4321'),(2,'Tran','Thi B','tranthib@example.com','097-765-4322'),(3,'Le','Van C','levanc@example.com','096-765-4323'),(4,'Pham','Thi D','phamthid@example.com','095-765-4324'),(5,'Bui','Van E','buivane@example.com','094-765-4325');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -81,4 +80,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-13  0:31:27
+-- Dump completed on 2024-08-13 15:54:36
