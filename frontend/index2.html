@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+</head>
+
+<body>
+    <div class="antialiased sans-serif bg-gray-200 h-screen" >
+
+
+        <link rel="stylesheet" href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css">
+
+
+        <div class="container mx-auto py-10" >
+            <div>
+                <div class="py-3 border-b bg-gray-700 pl-16 font-semibold text-white flex justify-between">
+                    <h1 class="text-3xl">Manage Estate</h1>
+                    <button
+                        class="center mr-16 rounded-lg bg-green-500  px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                        data-ripple-light="true">
+                        Add Estate
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative" style="height: 800px;">
+                <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+                    <thead>
+                        <tr class="text-left">
+                            <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100">
+
+                            </th>
+                            <div>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class="">ID</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class="">Owner ID</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class="">Address</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class="">Price</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class="">Description</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class="">Status</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class="">Created At</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"
+                                    :class=""></th>
+                            </div>
+                        </tr>
+                    </thead>
+
+
+
+
+
+
+                    <div>
+                        <div>
+
+                            <tr class="hover:bg-gray-300">
+                                <td class="border-dashed border-t border-gray-200 px-3">
+
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 userId">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">1 </span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 firstName">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">1</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 lastName">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">22 Le Duan, Ben Nghe, District 1, Ho Chi Minh City</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 emailAddress">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">250000.00</span>
+                                </td>
+
+                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">Apartment</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">Available</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">2024-08-12 16:53:04</span>
+                                </td>
+                             
+
+                                <td class="border-dashed border-t border-gray-200 ">
+                                    <button
+                                        class=" flex items-center middle none center mr-4 rounded-lg bg-red-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                        data-ripple-light="true">
+                                        Delete
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+
+                            <tr class="hover:bg-gray-300">
+                                <td class="border-dashed border-t border-gray-200 px-3">
+
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 userId">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">1 </span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 firstName">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">1</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 lastName">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">22 Le Duan, Ben Nghe, District 1, Ho Chi Minh City</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 emailAddress">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">250000.00</span>
+                                </td>
+
+                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">Apartment</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">Available</span>
+                                </td>
+                                <td class="border-dashed border-t border-gray-200 phoneNumber">
+                                    <span class="text-gray-700 px-6 py-3 flex items-center">2024-08-12 16:53:04</span>
+                                </td>
+                             
+
+                                <td class="border-dashed border-t border-gray-200 ">
+                                    <button
+                                        class=" flex items-center middle none center mr-4 rounded-lg bg-red-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-500/20 transition-all hover:shadow-lg hover:shadow-red-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                        data-ripple-light="true">
+                                        Delete
+                                    </button>
+
+                                </td>
+
+                            </tr>
+                        </div>
+                    </div>
+                </table>
+            </div>
+</body>
+
+</html>
