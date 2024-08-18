@@ -1,0 +1,36 @@
+Databse name : estateDB
+
+
+ CREATE TABLE user(user_id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(
+255) NOT NULL,full_name VARCHAR(100), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE estateInfo (
+    estate_id INT AUTO_INCREMENT PRIMARY KEY,
+    owner_id INT NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    price DECIMAL(12,2) NOT NULL,
+    description TEXT,
+    status ENUM('Available', 'Sold', 'Pending') NOT NULL DEFAULT 'Available',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+Examples
+INSERT INTO estateInfo (owner_id, address, price, description, status, created_at) VALUES
+(1, '22 Le Duan, Ben Nghe, District 1, Ho Chi Minh City', 250000.00, 'Apartment', 'Available', CURRENT_TIMESTAMP),
+(2, '123 Tran Hung Dao, Hoan Kiem, Hanoi', 300000.00, 'House', 'Sold', CURRENT_TIMESTAMP),
+(3, '12 Nguyen Hue, Ben Thanh, District 1, Ho Chi Minh City', 275000.00, 'Land', 'Pending', CURRENT_TIMESTAMP),
+(4, '98 Hang Buom, Hoan Kiem, Hanoi', 150000.00, 'Apartment', 'Available', CURRENT_TIMESTAMP),
+(5, '45 Ly Tu Trong, Ben Nghe, District 1, Ho Chi Minh City', 500000.00, 'House', 'Sold', CURRENT_TIMESTAMP);
+
+INSERT INTO user (username, password, full_name, created_at) VALUES
+('test1', 'securepass1', 'Nguyen Van A', CURRENT_TIMESTAMP),
+('test2', 'securepass2', 'Tran Thi B', CURRENT_TIMESTAMP),
+('test3', 'securepass3', 'Le Van C', CURRENT_TIMESTAMP),
+('test4', 'securepass4', 'Pham Thi D', CURRENT_TIMESTAMP),
+('test5', 'securepass5', 'Hoang Van E', CURRENT_TIMESTAMP);
+
+
+Type : 
+mysql -u username -p -e "CREATE DATABASE estateDB;"
+mysql -u username -p estateDB < estateDB.sql
