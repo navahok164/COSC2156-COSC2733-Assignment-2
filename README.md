@@ -1,10 +1,10 @@
 # COSC2156-COSC2733 Assingment 2
 
 ## How to setup
-  - First Method
+  - First Method:
 Follow the installation guide in the report
 
-  - Second Method
+  - Second Method:
 1. Install XAMPP
 2. Run the XAMPP Service
 3. Allocate to the directory `lampp/htdocs` (should be inside the folder installation for XAMPP)
