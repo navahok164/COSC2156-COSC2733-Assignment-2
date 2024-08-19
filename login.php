@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($result->num_rows > 0) {
             // Email exists, redirect to the user_info.html page
-            header("Location: estate_management.php");
+            header("Location: combined_management.php");
             exit();
         } else {
             $login_error = "Login failed. Email not found.";
