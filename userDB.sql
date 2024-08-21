@@ -28,6 +28,7 @@ CREATE TABLE `user` (
   `lastname` varchar(50) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `phonenumber` varchar(15) DEFAULT NULL,
+  `pwd` varchar(255) NOT NULL,
   PRIMARY KEY (`usrID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,7 +39,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Nguyen','Van A','nguyenvana@example.com','098-765-4321'),(2,'Tran','Thi B','tranthib@example.com','097-765-4322'),(3,'Le','Van C','levanc@example.com','096-765-4323'),(4,'Pham','Thi D','phamthid@example.com','095-765-4324'),(5,'Bui','Van E','buivane@example.com','094-765-4325');
+INSERT INTO `user` VALUES (1,'Nguyen','Van A','nguyenvana@example.com','098-765-4321','cfa89b8f'),(2,'Tran','Thi B','tranthib@example.com','097-765-4322','9b282f83'),(3,'Le','Van C','levanc@example.com','096-765-4323','83595987'),(4,'Pham','Thi D','phamthid@example.com','095-765-4324','9e5372aa'),(5,'Bui','Van E','buivane@example.com','094-765-4325','48e6617e');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-13 15:54:36
+-- Dump completed on 2024-08-21 14:53:54

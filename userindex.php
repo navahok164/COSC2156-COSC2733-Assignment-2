@@ -4,6 +4,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();  // Start the session
+
+// Check if the user is logged in
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // If not logged in, show a 404 Not Found error
+    header("HTTP/1.0 404 Not Found");
+    exit("404 Not Found");
+}
+
 // Database connection
 $servername = "localhost";
 $username = "root"; 
@@ -80,6 +89,20 @@ function fetchEstates($conn) {
     </style>
 </head>
 <body>
+<div class="antialiased sans-serif bg-gray-200 h-screen">
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div>
+                <!-- Logout Button -->
+                <form action="logout.php" method="POST">
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
     <div class="antialiased sans-serif bg-gray-200 h-screen">
         <!-- Navigation Bar -->
         <div class="container mx-auto py-10">

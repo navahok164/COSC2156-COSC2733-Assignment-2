@@ -4,6 +4,15 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();  // Start the session
+
+// Check if the user is logged in
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // If not logged in, show a 404 Not Found error
+    header("HTTP/1.0 404 Not Found");
+    exit("404 Not Found");
+}
+
 // Database connection
 $servername = "localhost";
 $username = "root"; // Default XAMPP username
@@ -65,14 +74,15 @@ function createUser($conn) {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $phonenumber = $_POST['phonenumber'];
+    $password = $_POST['password'];
 
-    if (empty($firstname) || empty($lastname) || empty($email) || empty($phonenumber)) {
+    if (empty($firstname) || empty($lastname) || empty($email) || empty($phonenumber) || empty($password)) {
         echo "All fields are required.";
         return;
     }
 
-    $stmt = $conn->prepare("INSERT INTO user (firstname, lastname, email, phonenumber) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $firstname, $lastname, $email, $phonenumber);
+    $stmt = $conn->prepare("INSERT INTO user (firstname, lastname, email, phonenumber, pwd) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $firstname, $lastname, $email, $phonenumber, $password);
 
     if ($stmt->execute()) {
         header("Location: combined_management.php?page=users");
@@ -90,14 +100,22 @@ function updateUser($conn) {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
     $phonenumber = $_POST['phonenumber'];
+    $password = $_POST['password'];
 
     if (empty($firstname) || empty($lastname) || empty($email) || empty($phonenumber)) {
         echo "All fields are required.";
         return;
     }
 
-    $stmt = $conn->prepare("UPDATE user SET firstname = ?, lastname = ?, email = ?, phonenumber = ? WHERE usrID = ?");
-    $stmt->bind_param("ssssi", $firstname, $lastname, $email, $phonenumber, $usrID);
+    if (!empty($password)) {
+        // If the password is being updated, hash it
+        $stmt = $conn->prepare("UPDATE user SET firstname = ?, lastname = ?, email = ?, phonenumber = ?, pwd = ? WHERE usrID = ?");
+        $stmt->bind_param("sssssi", $firstname, $lastname, $email, $phonenumber, $password, $usrID);
+    } else {
+        // If the password is not being updated
+        $stmt = $conn->prepare("UPDATE user SET firstname = ?, lastname = ?, email = ?, phonenumber = ? WHERE usrID = ?");
+        $stmt->bind_param("ssssi", $firstname, $lastname, $email, $phonenumber, $usrID);
+    }
 
     if ($stmt->execute()) {
         header("Location: combined_management.php?page=users");
@@ -254,12 +272,18 @@ function fetchEstates($conn) {
     <div class="antialiased sans-serif bg-gray-200 h-screen">
         <!-- Navigation Bar -->
         <nav class="bg-gray-800 p-4">
-            <div class="container mx-auto">
-                <div class="flex justify-between">
-                    <div class="text-white font-semibold text-xl">
-                        <a href="combined_management.php?page=users" class="mr-4">User Management</a>
-                        <a href="combined_management.php?page=estates">Estate Management</a>
-                    </div>
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="text-white font-bold">
+                    <a href="?page=users" class="mr-4 hover:underline">Manage Users</a>
+                    <a href="?page=estates" class="hover:underline">Manage Estates</a>
+                </div>
+                <div>
+                    <!-- Logout Button -->
+                    <form action="logout.php" method="POST">
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                            Logout
+                        </button>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -304,6 +328,11 @@ function fetchEstates($conn) {
                                 <input type="text" name="phonenumber" id="phonenumber" required
                                     class="mt-1 p-2 w-full border border-gray-300 rounded-md">
                             </div>
+                            <div class="mb-4">
+                                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input type="password" name="password" id="password" required
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+                            </div>
                             <div class="text-right">
                                 <button type="submit"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -342,6 +371,11 @@ function fetchEstates($conn) {
                                 <input type="text" name="phonenumber" id="edit_phonenumber" required
                                     class="mt-1 p-2 w-full border border-gray-300 rounded-md">
                             </div>
+                            <div class="mb-4">
+                                <label for="edit_password" class="block text-sm font-medium text-gray-700">Password</label>
+                                <input type="password" name="password" id="edit_password" required
+                                    class="mt-1 p-2 w-full border border-gray-300 rounded-md">
+                            </div>
                             <div class="text-right">
                                 <button type="submit"
                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -363,6 +397,7 @@ function fetchEstates($conn) {
                                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Last Name</th>
                                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Email</th>
                                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Phone Number</th>
+                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Password</th>
                                 <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"></th>
                             </tr>
                         </thead>
@@ -379,8 +414,9 @@ function fetchEstates($conn) {
                                         <td class='border-dashed border-t border-gray-200 lastName'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['lastname']}</span></td>
                                         <td class='border-dashed border-t border-gray-200 emailAddress'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['email']}</span></td>
                                         <td class='border-dashed border-t border-gray-200 phoneNumber'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['phonenumber']}</span></td>
+                                        <td class='border-dashed border-t border-gray-200 password'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['pwd']}</span></td>
                                         <td class='border-dashed border-t border-gray-200'>
-                                            <button onclick='openEditModal({$row['usrID']}, \"{$row['firstname']}\", \"{$row['lastname']}\", \"{$row['email']}\", \"{$row['phonenumber']}\")'
+                                            <button onclick='openEditModal({$row['usrID']}, \"{$row['firstname']}\", \"{$row['lastname']}\", \"{$row['email']}\", \"{$row['phonenumber']}\", \"{$row['pwd']}\")'
                                                     class='flex items-center middle none center mr-4 rounded-lg bg-yellow-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-yellow-500/20 transition-all hover:shadow-lg hover:shadow-yellow-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'>
                                                 Edit
                                             </button>

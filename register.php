@@ -1,4 +1,9 @@
 <?php
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Include the database connection file
 include 'userdb.php';
 
@@ -12,9 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $lastname = trim($_POST['lastname']);
     $email = trim($_POST['email']);
     $phonenumber = trim($_POST['phonenumber']);
+    $password = trim($_POST['password']);
 
     // Basic validation
-    if (empty($firstname) || empty($lastname) || empty($email) || empty($phonenumber)) {
+    if (empty($firstname) || empty($lastname) || empty($email) || empty($phonenumber) || empty($password)) {
         $register_error = "All fields are required.";
     } else {
         // Check if email already exists
@@ -27,8 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $register_error = "Email already registered.";
         } else {
             // Prepare the SQL statement to prevent SQL injection
-            $stmt = $conn->prepare("INSERT INTO user (firstname, lastname, email, phonenumber) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $firstname, $lastname, $email, $phonenumber);
+            $stmt = $conn->prepare("INSERT INTO user (firstname, lastname, email, phonenumber, pwd) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $firstname, $lastname, $email, $phonenumber, $password);
 
             // Execute the query
             if ($stmt->execute()) {
@@ -97,6 +103,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div>
                         <label class="text-gray-800 font-semibold block my-3 text-md" for="email">Email</label>
                         <input class="w-full bg-gray-100 px-2 py-2 rounded-lg focus:outline-none" type="email" name="email" id="email" placeholder="Email" required>
+                    </div>
+
+                    <div>
+                        <label class="text-gray-800 font-semibold block my-3 text-md" for="password">Password</label>
+                        <input class="w-full bg-gray-100 px-2 py-2 rounded-lg focus:outline-none" type="password" name="password" id="password" placeholder="Password" required>
                     </div>
 
                     <div>
