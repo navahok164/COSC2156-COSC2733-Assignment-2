@@ -34,10 +34,6 @@ function fetchEstates($conn) {
 }
 ?>
 
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,117 +82,106 @@ function fetchEstates($conn) {
 <body>
     <div class="antialiased sans-serif bg-gray-200 h-screen">
         <!-- Navigation Bar -->
-      
-
         <div class="container mx-auto py-10">
-           
-                <div>
-                    <div class="py-3 border-b bg-gray-700 pl-16 font-semibold text-white flex justify-between">
-                        <h1 class="text-3xl">View Estate Info</h1>
-                        
+            <div>
+                <div class="py-3 border-b bg-gray-700 pl-16 font-semibold text-white flex justify-between">
+                    <h1 class="text-3xl">View Estate Info</h1>
+                </div>
+            </div>
+            
+            <!-- Modal to view estate info -->
+            <div id="viewEstateModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeViewModalButton">&times;</span>
+                    <h2 class="text-2xl mb-4">Estate Information</h2>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Owner ID</label>
+                        <p id="view_owner_id" class="mt-1 p-2 w-full border border-gray-300 rounded-md"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Address</label>
+                        <p id="view_address" class="mt-1 p-2 w-full border border-gray-300 rounded-md"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Price</label>
+                        <p id="view_price" class="mt-1 p-2 w-full border border-gray-300 rounded-md"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                        <p id="view_description" class="mt-1 p-2 w-full border border-gray-300 rounded-md"></p>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Status</label>
+                        <p id="view_status" class="mt-1 p-2 w-full border border-gray-300 rounded-md"></p>
                     </div>
                 </div>
+            </div>
 
-                <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative" style="height: 800px;">
-                    <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
-                        <thead>
-                            <tr class="text-left">
-                                <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100"></th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">ID</th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Owner ID</th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Address</th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Price</th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Description</th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Status</th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Created At</th>
-                                <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $result = fetchEstates($conn);
+            <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative" style="height: 800px;">
+                <table class="border-collapse table-auto w-full whitespace-no-wrap bg-white table-striped relative">
+                    <thead>
+                        <tr class="text-left">
+                            <th class="py-2 px-3 sticky top-0 border-b border-gray-200 bg-gray-100"></th>
+                            <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Address</th>
+                            <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm">Price</th>
+                            <th class="bg-gray-100 sticky top-0 border-b border-gray-200 px-6 py-2 text-gray-600 font-bold tracking-wider uppercase text-sm"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $result = fetchEstates($conn);
 
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr class='hover:bg-gray-300'>
-                                        <td class='border-dashed border-t border-gray-200 px-3'></td>
-                                        <td class='border-dashed border-t border-gray-200 userId'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['estate_id']}</span></td>
-                                        <td class='border-dashed border-t border-gray-200 firstName'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['owner_id']}</span></td>
-                                        <td class='border-dashed border-t border-gray-200 lastName'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['address']}</span></td>
-                                        <td class='border-dashed border-t border-gray-200 emailAddress'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['price']}</span></td>
-                                        <td class='border-dashed border-t border-gray-200 phoneNumber'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['description']}</span></td>
-                                        <td class='border-dashed border-t border-gray-200 phoneNumber'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['status']}</span></td>
-                                        <td class='border-dashed border-t border-gray-200 phoneNumber'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['created_at']}</span></td>
-                                        <td class='border-dashed border-t border-gray-200 '>
-                                          
-                                            
-                                        </td>
-                                    </tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='9' class='text-center text-gray-700 px-6 py-3'>No estate information found.</td></tr>";
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr class='hover:bg-gray-300'>
+                                    <td class='border-dashed border-t border-gray-200 px-3'></td>
+                                    <td class='border-dashed border-t border-gray-200 lastName'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['address']}</span></td>
+                                    <td class='border-dashed border-t border-gray-200 emailAddress'><span class='text-gray-700 px-6 py-3 flex items-center'>{$row['price']}$</span></td>
+                                    <td class='border-dashed border-t border-gray-200'>
+                                        <button onclick='openViewModal({$row['estate_id']}, {$row['owner_id']}, \"{$row['address']}\", {$row['price']}, \"{$row['description']}\", \"{$row['status']}\")'
+                                            class='flex items-center middle none center mr-4 rounded-lg bg-blue-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'>
+                                            View 
+                                        </button>
+                                    </td>
+                                </tr>";
                             }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                        } else {
+                            echo "<tr><td colspan='9' class='text-center text-gray-700 px-6 py-3'>No estate information found.</td></tr>";
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
-        // Get the modal elements
-        var addModal = document.getElementById("<?php echo $page == 'users' ? 'addUserModal' : 'addEstateModal'; ?>");
-        var editModal = document.getElementById("<?php echo $page == 'users' ? 'editUserModal' : 'editEstateModal'; ?>");
+        // Get the modal element
+        var viewModal = document.getElementById("viewEstateModal");
 
-        // Get the buttons that open the modals
-        var openModalButton = document.getElementById("openModalButton");
+        // Get the <span> element that closes the modal
+        var closeViewModalButton = document.getElementById("closeViewModalButton");
 
-        // Get the <span> elements that close the modals
-        var closeAddModalButton = document.getElementById("closeModalButton");
-        var closeEditModalButton = document.getElementById("closeEditModalButton");
-
-        // When the user clicks the button, open the add modal
-        openModalButton.onclick = function() {
-            addModal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the add modal
-        closeAddModalButton.onclick = function() {
-            addModal.style.display = "none";
-        }
-
-        // When the user clicks on <span> (x), close the edit modal
-        closeEditModalButton.onclick = function() {
-            editModal.style.display = "none";
+        // When the user clicks on <span> (x), close the view modal
+        closeViewModalButton.onclick = function() {
+            viewModal.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
-            if (event.target == addModal) {
-                addModal.style.display = "none";
-            }
-            if (event.target == editModal) {
-                editModal.style.display = "none";
+            if (event.target == viewModal) {
+                viewModal.style.display = "none";
             }
         }
 
-        // Function to open the edit modal with pre-filled data
-        function openEditModal(<?php echo $page == 'users' ? 'usrID, firstname, lastname, email, phonenumber' : 'estate_id, owner_id, address, price, description, status'; ?>) {
-            <?php if ($page == 'users'): ?>
-                document.getElementById('edit_usrID').value = usrID;
-                document.getElementById('edit_firstname').value = firstname;
-                document.getElementById('edit_lastname').value = lastname;
-                document.getElementById('edit_email').value = email;
-                document.getElementById('edit_phonenumber').value = phonenumber;
-            <?php else: ?>
-                document.getElementById('edit_estate_id').value = estate_id;
-                document.getElementById('edit_owner_id').value = owner_id;
-                document.getElementById('edit_address').value = address;
-                document.getElementById('edit_price').value = price;
-                document.getElementById('edit_description').value = description;
-                document.getElementById('edit_status').value = status;
-            <?php endif; ?>
-            editModal.style.display = 'block';
+        // Function to open the view modal with estate information
+        function openViewModal(estate_id, owner_id, address, price, description, status) {
+            document.getElementById('view_owner_id').textContent = owner_id;
+            document.getElementById('view_address').textContent = address;
+            document.getElementById('view_price').textContent = price + "$";
+            document.getElementById('view_description').textContent = description;
+            document.getElementById('view_status').textContent = status;
+            viewModal.style.display = 'block';
         }
     </script>
 </body>
